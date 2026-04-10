@@ -94,12 +94,13 @@ namespace lab7.list
 
             return sum.ToString();
         }
-        public SinglyLinkedList<int> CreateNewList(int value)
+        public SinglyLinkedList<int> CreateNewList(int value, out string message)
         {
             var newList = new SinglyLinkedList<int>();
+            
 
             var current = Head;
-
+            
             while (current != null)
             {
                 if (current.Data < value)
@@ -109,7 +110,18 @@ namespace lab7.list
 
                 current = current.Next;
             }
-
+            if (this.IsEmpty())
+            {
+                message = "List is empty";
+            }
+            else if (newList.IsEmpty())
+            {
+                message = "Couldn't create new list";
+            }
+            else
+            {
+                message = "success";
+            }
             return newList;
         }
         public string DeleteAfterMax()

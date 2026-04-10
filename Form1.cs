@@ -137,7 +137,7 @@ namespace lab7
 
         private void DisplayList(SinglyLinkedList<int> targetList)
         {
-            listDisplay.Items.Clear();
+            //listDisplay.Items.Clear();
 
             foreach (var item in targetList.ToEnumerable())
             {
@@ -154,6 +154,7 @@ namespace lab7
 
         private void PrintButton_Click(object sender, EventArgs e)
         {
+            ClearOutput();
             DisplayList(list);
         }
 
@@ -161,7 +162,7 @@ namespace lab7
         {
             if (!TryGetInput(out int value)) return;
 
-            listDisplay.Items.Clear();
+            ClearOutput();
 
             listDisplay.Items.Add(list.FindHigherElement(value));
         }
@@ -169,23 +170,29 @@ namespace lab7
         private void SumButton_Click(object sender, EventArgs e)
         {
             if (!TryGetInput(out int value)) return;
-
-            listDisplay.Items.Clear();
+            ClearOutput();
             listDisplay.Items.Add(list.FindSum(value));
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            listDisplay.Items.Clear();
+            ClearOutput();
             listDisplay.Items.Add(list.DeleteAfterMax());
         }
 
         private void NewListButton_Click(object sender, EventArgs e)
         {
             if (!TryGetInput(out int value)) return;
-
-            var newList = list.CreateNewList(value);
+            string message;
+            var newList = list.CreateNewList(value, out message);
+            ClearOutput();
+            listDisplay.Items.Add(message);
             DisplayList(newList);
+        }
+
+        private void ClearOutput()
+        {
+            listDisplay.Items.Clear();
         }
     }
 }
