@@ -20,7 +20,7 @@ namespace lab7
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            string cultureName = "uk-UA"; // Load this from a user setting
+            string cultureName = "uk-UA";
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureName);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(cultureName);
             Application.Run(new Form1());
