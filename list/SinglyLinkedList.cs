@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace lab7.list
 {
+
     public class SinglyLinkedList<T>
     {
+        private const string empty = "Список порожній";
         public Node Head { get; private set; }
 
         public void AddAfterFirst(int data)
@@ -26,32 +29,29 @@ namespace lab7.list
             Head.Next = newNode;
         }
 
-        public void Print()
+        public string Print()
         {
+            if (this.IsEmpty())
+            {
+                return empty;
+            }
+            string output = string.Empty;
             Node current = Head;
             while (current != null)
             {
-                Console.Write(current.Data + " -> ");
+                output += current.Data.ToString() + " -> ";
                 current = current.Next;
             }
-            Console.WriteLine("null");
-        }
+            output += "null";
 
-        public IEnumerable<int> ToEnumerable()
-        {
-            var current = Head;
-            while (current != null)
-            {
-                yield return current.Data;
-                current = current.Next;
-            }
+            return output;
         }
 
         public string FindHigherElement(int key)
         {
             if (this.IsEmpty())
             {
-                return "List is empty";
+                return empty;
             }
 
             var current = Head;
@@ -59,7 +59,7 @@ namespace lab7.list
             {
                 if (current.Next == null)
                 {
-                    return "Couldn't find a bigger elemnt";
+                    return "В списку немає елемента більшого за заданий";
                 }
                 current = current.Next;
             }
@@ -74,22 +74,22 @@ namespace lab7.list
 
             if (this.IsEmpty())
             {
-                return "List is empty";
+                return empty;
             }
             
             var current = Head;
-            while (current.Next != null)
+            while (current != null)
             {
                 if (current.Data < value)
                 {
-                    sum += current.Data;
+                    sum = sum + current.Data;
                     count++;
                 }
                 current = current.Next;
             }
             if (count == 0)
             {
-                return "No elements smaller than the key";
+                return "Немає елементів менших за заданий";
             }
 
             return sum.ToString();
@@ -112,32 +112,29 @@ namespace lab7.list
             }
             if (this.IsEmpty())
             {
-                message = "List is empty";
+                message = empty;
             }
             else if (newList.IsEmpty())
             {
-                message = "Couldn't create new list";
+                message = "Не вдалося створити новий список за таким критерієм";
             }
             else
             {
-                message = "success";
+                message = "Успішно";
             }
             return newList;
         }
+
         public string DeleteAfterMax()
         {
             if (this.IsEmpty())
-                return "List is empty";
+                return empty;
             else if (Head.Next == null)
-                return "List only has 1 element";
+                return $"Список має лише 1 елемент ({Head.Data})";
 
             FindMaxNode().Next = null;
-            if (this.IsEmpty())
-            {
-                return "Max element was the first";
-            }
-
-            return "Succes";
+           
+            return "Успішно";
         }
 
         private Node FindMaxNode()

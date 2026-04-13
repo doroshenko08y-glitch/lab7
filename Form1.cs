@@ -40,7 +40,7 @@ namespace lab7
 
             addButton = new Button()
             {
-                Text = "Add After First",
+                Text = "Додати в список",
                 Top = 60,
                 Left = 20,
                 Width = buttonWidth,
@@ -51,7 +51,7 @@ namespace lab7
 
             findButton = new Button()
             {
-                Text = "Find element bigger than key",
+                Text = "Знайти елемент більший за заданий",
                 Top = 80,
                 Left = 20,
                 Width = buttonWidth,
@@ -62,7 +62,7 @@ namespace lab7
 
             sumButton = new Button()
             {
-                Text = "Sum of elements smaller than value",
+                Text = "Порахувати суму елементів менших за значення",
                 Top = 100,
                 Left = 20,
                 Width = buttonWidth,
@@ -73,7 +73,7 @@ namespace lab7
 
             newListButton = new Button()
             {
-                Text = "Create new filtered list",
+                Text = "Створити новий список з елементами меншими за заданий",
                 Top = 120,
                 Left = 20,
                 Width = buttonWidth,
@@ -84,18 +84,18 @@ namespace lab7
 
             deleteButton = new Button()
             {
-                Text = "Delete elements after max",
+                Text = "Видалиити елементи після максимального",
                 Top = 140,
                 Left = 20,
                 Width = buttonWidth,
                 BackColor = System.Drawing.Color.AliceBlue,
-                ForeColor = System.Drawing.Color.MidnightBlue
+                ForeColor = System.Drawing.Color.MidnightBlue,
             };
             deleteButton.Click += DeleteButton_Click;
 
             printButton = new Button()
             {
-                Text = "Print List",
+                Text = "Вивести список",
                 Top = 160,
                 Left = 20,
                 Width = buttonWidth,
@@ -131,18 +131,13 @@ namespace lab7
                 return true;
             }
 
-            MessageBox.Show("Enter a valid integer");
+            MessageBox.Show("Введіть ціле число!");
             return false;
         }
 
         private void DisplayList(SinglyLinkedList<int> targetList)
         {
-            //listDisplay.Items.Clear();
-
-            foreach (var item in targetList.ToEnumerable())
-            {
-                listDisplay.Items.Add(item);
-            }
+            listDisplay.Items.Add(targetList.Print());
         }
 
         private void AddButton_Click(object sender, EventArgs e)
