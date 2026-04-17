@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,16 +10,35 @@ using System.Xml.Linq;
 namespace lab7.list
 {
 
-    public class SinglyLinkedList<T>
+    public class SinglyLinkedList<T> : IEnumerable<T>
     {
         private const string empty = "Список порожній";
+        private int countIndex = 0;
         public Node Head { get; private set; }
+
+        public int this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= countIndex) 
+                { 
+                    throw new IndexOutOfRangeException(); 
+                }
+
+                Node current = Head;
+                for (int i = 0; i < index; i++)
+                    current = current.Next;
+
+                return current.Data;
+            }
+        }
 
         public void AddAfterFirst(int data)
         {
             if (this.IsEmpty())
             {
                 Head = new Node { Data = data };
+                this.countIndex++;
                 return;
             }
 
@@ -27,6 +47,7 @@ namespace lab7.list
             newNode.Next = Head.Next;
 
             Head.Next = newNode;
+            this.countIndex++;
         }
 
         public string Print()
@@ -103,7 +124,7 @@ namespace lab7.list
             
             while (current != null)
             {
-                if (current.Data < value)
+                if (current.Data > value)
                 {
                     newList.AddAfterFirst(current.Data);
                 }
@@ -161,6 +182,21 @@ namespace lab7.list
                 return true;
             }
             return false;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            Node current = Head;
+            while (current != null)
+            {
+                yield return (T)(object)current.Data;
+                current = current.Next;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

@@ -16,6 +16,7 @@ namespace lab7
         private Button deleteButton;
         private Button newListButton;
         private ListBox listDisplay;
+        private Button indexButton;
 
         private const int buttonWidth = 340;
 
@@ -104,6 +105,17 @@ namespace lab7
             };
             printButton.Click += PrintButton_Click;
 
+            indexButton = new Button()
+            {
+                Text = "Вивести за індексом",
+                Top = 180,
+                Left = 20,
+                Width = buttonWidth,
+                BackColor = System.Drawing.Color.AliceBlue,
+                ForeColor = System.Drawing.Color.MidnightBlue,
+            };
+            indexButton.Click += IndexButton_Click;
+
             listDisplay = new ListBox()
             {
                 Top = 200,
@@ -121,6 +133,7 @@ namespace lab7
             this.Controls.Add(deleteButton);
             this.Controls.Add(printButton);
             this.Controls.Add(listDisplay);
+            this.Controls.Add(indexButton);
         }
 
         private bool TryGetInput(out int value)
@@ -135,6 +148,14 @@ namespace lab7
             return false;
         }
 
+        private void IndexButton_Click(object sender, EventArgs e)
+        {
+            ClearOutput();
+            if (!TryGetInput(out int value)) return;
+
+            listDisplay.Items.Add(list[value]);
+
+        }
         private void DisplayList(SinglyLinkedList<int> targetList)
         {
             listDisplay.Items.Add(targetList.Print());
@@ -150,7 +171,11 @@ namespace lab7
         private void PrintButton_Click(object sender, EventArgs e)
         {
             ClearOutput();
-            DisplayList(list);
+
+            foreach (var item in list)
+            {
+                listDisplay.Items.Add(item);
+            }
         }
 
         private void FindButton_Click(object sender, EventArgs e)
